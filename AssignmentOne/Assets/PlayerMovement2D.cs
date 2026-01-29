@@ -172,9 +172,10 @@ public class PlayerMovement2D : MonoBehaviour
         UpdateAnimator();
 
         // killzone / respawn
-        if (transform.position.y <= -5)
+        if (transform.position.y <= -10)
         {
             GameMangerSingleton.Instance.RestartScene();
+            gameObject.SetActive(false);
         }
     }
 

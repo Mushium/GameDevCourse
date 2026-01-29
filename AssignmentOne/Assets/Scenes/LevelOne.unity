@@ -320,7 +320,7 @@ Transform:
   m_GameObject: {fileID: 101506241}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.1528928, y: 0.58012635, z: 133.83023}
+  m_LocalPosition: {x: -5.647893, y: 0.58012635, z: 133.83023}
   m_LocalScale: {x: 1.2, y: 1.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -450,7 +450,7 @@ GameObject:
   - component: {fileID: 183832587}
   - component: {fileID: 183832586}
   m_Layer: 0
-  m_Name: Layer-5
+  m_Name: Layer-6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -465,7 +465,7 @@ Transform:
   m_GameObject: {fileID: 183832584}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 71, y: 5.5287, z: 138}
+  m_LocalPosition: {x: 64.70911, y: 5.5287, z: 138}
   m_LocalScale: {x: 1.7649602, y: 2.0373602, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1181,7 +1181,7 @@ Transform:
   m_GameObject: {fileID: 478992830}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.1528928, y: 0.58012635, z: 132.83023}
+  m_LocalPosition: {x: -4.24989, y: 0.58012635, z: 132.83023}
   m_LocalScale: {x: 1.2, y: 1.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1485,6 +1485,9 @@ GameObject:
   m_Component:
   - component: {fileID: 788165011}
   - component: {fileID: 788165010}
+  - component: {fileID: 788165014}
+  - component: {fileID: 788165013}
+  - component: {fileID: 788165012}
   m_Layer: 0
   m_Name: skull
   m_TagString: Untagged
@@ -1562,6 +1565,84 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &788165012
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 788165009}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 0.36
+--- !u!114 &788165013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 788165009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c209fafd44291254792aaa2c0db135d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minForce: 3
+  maxForce: 6
+  upwardBias: 0.5
+--- !u!50 &788165014
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 788165009}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &905765698
 GameObject:
   m_ObjectHideFlags: 0
@@ -1992,26 +2073,6 @@ Tilemap:
       serializedVersion: 2
       m_TileIndex: 3
       m_TileSpriteIndex: 2
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_TileObjectToInstantiateIndex: 65535
-      dummyAlignment: 0
-      m_AllTileFlags: 1073741825
-  - first: {x: 17, y: -4, z: 0}
-    second:
-      serializedVersion: 2
-      m_TileIndex: 0
-      m_TileSpriteIndex: 0
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_TileObjectToInstantiateIndex: 65535
-      dummyAlignment: 0
-      m_AllTileFlags: 1073741825
-  - first: {x: 18, y: -4, z: 0}
-    second:
-      serializedVersion: 2
-      m_TileIndex: 0
-      m_TileSpriteIndex: 0
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -2549,7 +2610,7 @@ Tilemap:
       m_AllTileFlags: 1073741825
   m_AnimatedTiles: {}
   m_TileAssetArray:
-  - m_RefCount: 5
+  - m_RefCount: 3
     m_Data: {fileID: 11400000, guid: 8ad0d0c65d8e60243986e34ab0983096, type: 2}
   - m_RefCount: 11
     m_Data: {fileID: 11400000, guid: c2883098c42f78344821ee707df85d3a, type: 2}
@@ -2572,7 +2633,7 @@ Tilemap:
   - m_RefCount: 52
     m_Data: {fileID: 11400000, guid: 56ef7343000e9ba46bb70713c07ec97a, type: 2}
   m_TileSpriteArray:
-  - m_RefCount: 5
+  - m_RefCount: 3
     m_Data: {fileID: 4882384208933234153, guid: aff2e1025b3883346993693f07b2c3c5, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 4268762105782021239, guid: aff2e1025b3883346993693f07b2c3c5, type: 3}
@@ -2595,7 +2656,7 @@ Tilemap:
   - m_RefCount: 1
     m_Data: {fileID: 8458814960144615047, guid: aff2e1025b3883346993693f07b2c3c5, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 89
+  - m_RefCount: 87
     m_Data:
       e00: 1
       e01: 0
@@ -2614,7 +2675,7 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 89
+  - m_RefCount: 87
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   - m_RefCount: 0
     m_Data: {r: NaN, g: NaN, b: NaN, a: NaN}
@@ -2818,7 +2879,7 @@ GameObject:
   - component: {fileID: 1014576860}
   - component: {fileID: 1014576859}
   m_Layer: 0
-  m_Name: Layer-3 (1)
+  m_Name: Layer-4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2833,7 +2894,7 @@ Transform:
   m_GameObject: {fileID: 1014576857}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 71, y: 2.41, z: 134.83023}
+  m_LocalPosition: {x: 66.107025, y: 2.41, z: 134.83023}
   m_LocalScale: {x: 1.76496, y: 1.52, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2934,7 +2995,7 @@ Transform:
   m_GameObject: {fileID: 1045593170}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 7.9467, y: 2.41, z: 134.83023}
+  m_LocalPosition: {x: 3.0536919, y: 2.41, z: 134.83023}
   m_LocalScale: {x: 1.76496, y: 1.52, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3107,7 +3168,7 @@ GameObject:
   - component: {fileID: 1153712852}
   - component: {fileID: 1153712853}
   m_Layer: 0
-  m_Name: Layer-4
+  m_Name: Layer-5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3122,7 +3183,7 @@ Transform:
   m_GameObject: {fileID: 1153712850}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 7.9467, y: 5.5287, z: 138}
+  m_LocalPosition: {x: 1.6557001, y: 5.5287, z: 138}
   m_LocalScale: {x: 1.7649602, y: 2.0373602, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3310,7 +3371,7 @@ Transform:
   m_GameObject: {fileID: 1227550769}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.1528928, y: 0.58012635, z: 131.83023}
+  m_LocalPosition: {x: -2.8518972, y: 0.58012635, z: 131.83023}
   m_LocalScale: {x: 1.2, y: 1.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3488,7 +3549,7 @@ GameObject:
   - component: {fileID: 1308188298}
   m_Layer: 6
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3914,7 +3975,7 @@ Transform:
   m_GameObject: {fileID: 1331065744}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -21.5, y: 2.9999995, z: -10}
+  m_LocalPosition: {x: -28.49, y: 2.9999995, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3935,7 +3996,7 @@ MonoBehaviour:
   target: {fileID: 1308188296}
   offset: {x: 0, y: 0}
   smoothTime: 0
-  minX: -21.5
+  minX: -28.49
   maxX: 100
 --- !u!114 &1331065749
 MonoBehaviour:
