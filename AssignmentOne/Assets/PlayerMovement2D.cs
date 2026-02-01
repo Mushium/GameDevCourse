@@ -20,6 +20,9 @@ public class PlayerMovement2D : MonoBehaviour
     private Animator animator;
     private Rigidbody2D rb;
     private Transform spriteRoot;
+    
+    [Header("Attack Position")]
+    public Transform AttackPoint;
 
     [Header("Ground Check")]
     public Transform groundCheck;
@@ -29,7 +32,7 @@ public class PlayerMovement2D : MonoBehaviour
     [Header("Movement")]
     public float moveSpeed = 7f;
     public float jumpForce = 8f;
-    public float gravity = -20f; // manual gravity
+    public float gravity = -20f;
 
     [Header("Jumping")]
     public int maxJumps = 2;
@@ -44,18 +47,19 @@ public class PlayerMovement2D : MonoBehaviour
     public float rollDuration = 0.5f;
     public string rollStateName = "Roll";
 
+    [Header("Knockback")]
+    public float knockbackForce = 12f;
+    public float knockbackDuration = 0.2f;
+
     [Header("Runtime")]
     public PlayerState currentState = PlayerState.Idle;
-
-    // inputs + runtime
+    
     Vector2 moveInput;
     bool isGrounded;
     float verticalVelocity;
-
-    // jump tracking
+    
     int jumpsRemaining;
 
-    // combo state
     bool isAttacking = false;
     int comboIndex = 0; // 0 = not attacking, 1..maxCombo = current attack
     float attackTimer = 0f; // time left for the current attack
@@ -66,25 +70,26 @@ public class PlayerMovement2D : MonoBehaviour
     bool isRolling = false;
     float rollTimer = 0f;
 
+    // knockback state
+    bool isKnocked = false;
+    float knockbackTimer = 0f;
+    float knockbackDirX = 0f;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriteRoot = transform;
 
-        // control gravity manually
+        // custom gravity, so disable built-in
         rb.gravityScale = 0f;
-
-        // initialize jumps
         jumpsRemaining = maxJumps;
 
-        // safety: ensure arrays are correct length
         if (attackDurations == null || attackDurations.Length < maxCombo)
         {
             attackDurations = new float[maxCombo];
             for (int i = 0; i < maxCombo; i++) attackDurations[i] = 0.5f;
         }
-
         if (attackStateNames == null || attackStateNames.Length < maxCombo)
         {
             attackStateNames = new string[maxCombo];
@@ -94,40 +99,64 @@ public class PlayerMovement2D : MonoBehaviour
 
     void Update()
     {
-        // ---- GROUND CHECK (2D) ----
+        if (currentState == PlayerState.Die) return;
+
+        if (GameMangerSingleton.Instance.Health <= 0)
+        {
+            currentState = PlayerState.Die;
+            animator.SetInteger("state", (int)currentState);
+            return;
+        }
+        // -------- Ground check --------
         isGrounded = Physics2D.OverlapCircle(
             groundCheck.position,
             groundCheckRadius,
             groundLayer
         );
-
-        // Reset jumps when grounded
+        
         if (isGrounded)
         {
             jumpsRemaining = maxJumps;
-
-            // Keep grounded
             if (verticalVelocity < 0f)
                 verticalVelocity = -2f;
         }
 
-        // Gravity
+        // -------- Gravity --------
         verticalVelocity += gravity * Time.deltaTime;
 
-        // Movement: allowed while attacking, blocked only while rolling
-        Vector2 velocity = rb.linearVelocity;
-        if (!isRolling)
+        // -------- Knockback timer --------
+        if (isKnocked)
         {
-            velocity.x = moveInput.x * moveSpeed;
+            knockbackTimer -= Time.deltaTime;
+            if (knockbackTimer <= 0f)
+            {
+                isKnocked = false;
+            }
+        }
+
+        // -------- Movement & velocity --------
+        Vector2 velocity = rb.linearVelocity;
+
+        // X movement
+        if (isKnocked)
+        {
+            // ignore input, just fly away
+            velocity.x = knockbackDirX * knockbackForce;
         }
         else
         {
-            velocity.x = 0f;
+            if (!isRolling)
+                velocity.x = moveInput.x * moveSpeed;
+            else
+                velocity.x = 0f;
         }
+
+        // Y movement from our custom verticalVelocity
         velocity.y = verticalVelocity;
+
         rb.linearVelocity = velocity;
 
-        // Update combo timers
+        // -------- Combo timers --------
         if (isAttacking)
         {
             if (attackTimer > 0f)
@@ -159,7 +188,7 @@ public class PlayerMovement2D : MonoBehaviour
             }
         }
 
-        // Update roll timer
+        // -------- Roll timer --------
         if (isRolling)
         {
             rollTimer -= Time.deltaTime;
@@ -169,9 +198,10 @@ public class PlayerMovement2D : MonoBehaviour
             }
         }
 
+        // -------- Animator state --------
         UpdateAnimator();
 
-        // killzone / respawn
+        // -------- Killzone / respawn --------
         if (transform.position.y <= -10)
         {
             GameMangerSingleton.Instance.RestartScene();
@@ -183,6 +213,8 @@ public class PlayerMovement2D : MonoBehaviour
 
     public void OnMoveInput(InputAction.CallbackContext ctx)
     {
+        if (isKnocked) return; // ignore move while knocked
+
         moveInput = ctx.ReadValue<Vector2>();
 
         // Flip sprite in 2D by scaling X - disabled while rolling (allowed while attacking)
@@ -195,7 +227,7 @@ public class PlayerMovement2D : MonoBehaviour
         }
 
         // Only update Run/Idle if not attacking or rolling
-        if (!isAttacking && !isRolling)
+        if (!isAttacking && !isRolling && !isKnocked)
         {
             if (isGrounded)
             {
@@ -210,12 +242,12 @@ public class PlayerMovement2D : MonoBehaviour
     public void OnJumpInput(InputAction.CallbackContext ctx)
     {
         if (!ctx.performed) return;
+        if (isKnocked) return; // no jump while knocked
 
         // If currently attacking and you want to cancel into jump:
         if (isAttacking)
         {
             CancelCombo(); // cancel attack
-            // allow normal jump after cancel
         }
 
         // If currently rolling, do not allow jump (you can change this behavior)
@@ -234,6 +266,7 @@ public class PlayerMovement2D : MonoBehaviour
     public void OnAttackInput(InputAction.CallbackContext ctx)
     {
         if (!ctx.performed) return;
+        if (isKnocked) return; // no attack while knocked
 
         // If currently rolling, don't allow attack
         if (isRolling) return;
@@ -250,13 +283,13 @@ public class PlayerMovement2D : MonoBehaviour
             {
                 queuedNext = true;
             }
-            // If out of combo window, the press does nothing
         }
     }
 
     public void OnRollInput(InputAction.CallbackContext ctx)
     {
         if (!ctx.performed) return;
+        if (isKnocked) return; // no roll while knocked
 
         // If currently attacking, cancel the attack and start a roll
         if (isAttacking)
@@ -269,7 +302,7 @@ public class PlayerMovement2D : MonoBehaviour
         // If currently rolling, pressing roll again does nothing
         if (isRolling) return;
 
-        // Optionally, disallow rolling in mid-air:
+        // Optionally disallow rolling in mid-air:
         // if (!isGrounded) return;
 
         StartRoll();
@@ -397,12 +430,8 @@ public class PlayerMovement2D : MonoBehaviour
     {
         if (animator == null) return;
 
-        // If attacking, attack playback controls Animator (we used animator.Play already).
-        if (isAttacking)
-            return;
-
-        // If rolling, roll playback controls Animator
-        if (isRolling)
+        // If attacking, rolling, or knocked, don't override their animations
+        if (isAttacking || isRolling || isKnocked)
             return;
 
         if (isGrounded)
@@ -418,11 +447,59 @@ public class PlayerMovement2D : MonoBehaviour
         }
     }
 
-    // Just to help visualize ground check in the Scene view
+    // ---------- COMBAT ----------
+
+    public void Attack(int c)
+    {
+        Collider2D collider = Physics2D.OverlapCircle(
+            AttackPoint.position,
+            0.2f,
+            LayerMask.GetMask("Enemy")
+        );
+        
+        if (collider == null) return;
+
+        collider.gameObject.GetComponent<Enemy>().TakeDamage(c);
+    }
+
+    public void KnockBack(Transform obj)
+    {
+        // direction away from the source
+        Vector2 dir = (transform.position - obj.position).normalized;
+
+        // horizontal knock direction
+        knockbackDirX = Mathf.Sign(dir.x);
+        if (knockbackDirX == 0)
+            knockbackDirX = 1f; // fallback
+
+        // upward kick
+        verticalVelocity = 6f; // tweak as needed
+
+        isKnocked = true;
+        knockbackTimer = knockbackDuration;
+
+        // Cancel other actions
+        CancelCombo();
+        isRolling = false;
+
+        // Optional: switch to jump state or add a hit state later
+        SetState(PlayerState.Jump);
+    }
+
+    // ---------- Gizmos ----------
+
     void OnDrawGizmosSelected()
     {
-        if (groundCheck == null) return;
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
+        if (groundCheck != null)
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
+        }
+
+        if (AttackPoint != null)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(AttackPoint.position, 0.2f);
+        }
     }
 }

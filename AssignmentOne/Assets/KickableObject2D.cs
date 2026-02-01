@@ -4,8 +4,8 @@ using UnityEngine;
 public class KickableObject2D : MonoBehaviour
 {
     [Header("Kick Force")]
-    public float minForce = 3f;
-    public float maxForce = 6f;
+    public float minForce = 7f;
+    public float maxForce = 10f;
 
     [Header("Upward Bias")]
     [Range(0f, 1f)]
@@ -17,6 +17,7 @@ public class KickableObject2D : MonoBehaviour
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        rb.gravityScale = 0f;
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -31,6 +32,8 @@ public class KickableObject2D : MonoBehaviour
 
     void Kick(Transform player)
     {
+        rb.gravityScale = 1f;
+
         hasBeenKicked = true;
 
         // Direction away from the player
