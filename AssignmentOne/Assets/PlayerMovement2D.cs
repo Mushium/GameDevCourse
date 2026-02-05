@@ -262,6 +262,15 @@ public class PlayerMovement2D : MonoBehaviour
             SetState(PlayerState.Jump);
         }
     }
+    
+    
+    public void OnInteractInput(InputAction.CallbackContext ctx)
+    {
+            if (!ctx.performed) return;
+            Collider2D[] NPC= Physics2D.OverlapCircleAll(transform.position, 4f, LayerMask.GetMask("NPC"));
+            if (NPC.Length == 0) return;
+            NPC[0].GetComponent<StartDialog>().OnInteract();
+    }
 
     public void OnAttackInput(InputAction.CallbackContext ctx)
     {
