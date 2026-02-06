@@ -2,12 +2,12 @@ using UnityEngine;
 
 public class StartDialog : MonoBehaviour
 {
-    public Dialog Dialog;
+    public Dialog dialog;
 
 
     public void OnInteract()
     {
-        Dialog.gameObject.SetActive(true);
-        Dialog.StartDialogue();
+        dialog.gameObject.SetActive(true);
+        dialog.StartDialogue();
     }
 }

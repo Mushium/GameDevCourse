@@ -23,17 +23,37 @@ public class Dialog : MonoBehaviour
     private string currentSentence = "";
     private Queue<string> sentences = new Queue<string>();
     
+    public Button confirmButton;
+    public Button cancelButton;
+    
 
     void Start()
     {
         isDialogue = false;
         nextIndicator.gameObject.SetActive(false); 
         gameObject.SetActive(false);
+        confirmButton.gameObject.SetActive(false);
+        cancelButton.gameObject.SetActive(false);
     }
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (!isDialogue) return;
+        if (sentences.Count == 0)
+        {
+            confirmButton.gameObject.SetActive(true);
+            cancelButton.gameObject.SetActive(true);
+
+            if (GameMangerSingleton.Instance.Coins >= 20)
+            {
+                confirmButton.interactable = true;
+            }
+            else
+            {
+                confirmButton.interactable = false;
+            }
+        }
+        else if (Input.GetMouseButtonDown(0))
         {
             DisplayNextSentence();
         }
@@ -41,9 +61,11 @@ public class Dialog : MonoBehaviour
 
     public void StartDialogue()
     {
-        if(isDialogue) return;
+        if (isDialogue) return;
         isDialogue = true;
         nameText.text = Cname;
+
+        sentences.Clear();
 
         foreach (string sentence in diaSen)
         {
@@ -51,6 +73,7 @@ public class Dialog : MonoBehaviour
         }
 
         nextIndicator.gameObject.SetActive(false);
+        gameObject.SetActive(true);
         DisplayNextSentence();
     }
 
@@ -96,6 +119,19 @@ public class Dialog : MonoBehaviour
     {
         isDialogue = false;
         nextIndicator.gameObject.SetActive(false);
+        confirmButton.gameObject.SetActive(false);
+        cancelButton.gameObject.SetActive(false);
         gameObject.SetActive(false);
+    }
+
+    public void CancelDialogue()
+    {
+        DisplayNextSentence();
+    }
+
+    public void UpgradeDialogue()
+    {
+        DisplayNextSentence();
+        
     }
 }

@@ -252,6 +252,22 @@ public class PlayerMovement2D : MonoBehaviour
 
         // If currently rolling, do not allow jump (you can change this behavior)
         if (isRolling) return;
+        
+        Collider2D collider = Physics2D.OverlapCircle(
+            AttackPoint.position,
+            0.1f,
+            LayerMask.GetMask("Default")
+        );
+
+        if (collider != null)
+        {
+            verticalVelocity = jumpForce;
+            PlayJumpAnimation();
+            SetState(PlayerState.Jump);
+            return;
+        }
+
+        
 
         if (jumpsRemaining > 0)
         {

@@ -1,14 +1,16 @@
 fileFormatVersion: 2
-guid: 3860814805f14ca4287e874e661e948f
-AssetOrigin:
-  serializedVersion: 1
-  productId: 173155
-  packageName: 2D Platformer Tileset
-  packageVersion: 4.1
-  assetPath: Assets/2D Platformer Tileset/Simple UI Pack/PSD/UI_PSD.psd
-  uploadId: 575983
+guid: 98aa83eb184fbbe4ea15aeaf1d4cbca8
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: -1807937387844499475
+    second: TitlePNG_0
+  - first:
+      213: 7854753347396579079
+    second: TitlePNG_1
+  - first:
+      213: 3886766121483299801
+    second: TitlePNG_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -72,7 +74,7 @@ TextureImporter:
   ignorePngGamma: 0
   applyGammaDecoding: 0
   swizzle: 50462976
-  cookieLightType: 1
+  cookieLightType: 0
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
@@ -115,12 +117,78 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: TitlePNG_0
+      rect:
+        serializedVersion: 2
+        x: 215
+        y: 16
+        width: 850
+        height: 225
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: de7816d468ae8e6e0800000000000000
+      internalID: -1807937387844499475
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TitlePNG_1
+      rect:
+        serializedVersion: 2
+        x: 535
+        y: 184
+        width: 48
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 70f22ed9d80b10d60800000000000000
+      internalID: 7854753347396579079
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TitlePNG_2
+      rect:
+        serializedVersion: 2
+        x: 657
+        y: 175
+        width: 133
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9dbe80cc13190f530800000000000000
+      internalID: 3886766121483299801
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
