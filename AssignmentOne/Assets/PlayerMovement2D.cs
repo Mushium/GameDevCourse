@@ -97,9 +97,22 @@ public class PlayerMovement2D : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        GameMangerSingleton.Instance.players.Add(gameObject);
+        transform.position = GameMangerSingleton.Instance.RestartPoint.position;
+    }
+
     void Update()
     {
         if (currentState == PlayerState.Die) return;
+        
+        Collider2D[] VictoryObj= Physics2D.OverlapCircleAll(transform.position, 2f, LayerMask.GetMask("Victory"));
+        if (VictoryObj.Length > 0)
+        {
+            GameMangerSingleton.Instance.Victory();
+        }
+        
 
         if (GameMangerSingleton.Instance.Health <= 0)
         {
@@ -255,7 +268,7 @@ public class PlayerMovement2D : MonoBehaviour
         
         Collider2D collider = Physics2D.OverlapCircle(
             AttackPoint.position,
-            0.1f,
+            0.5f,
             LayerMask.GetMask("Default")
         );
 
@@ -283,7 +296,7 @@ public class PlayerMovement2D : MonoBehaviour
     public void OnInteractInput(InputAction.CallbackContext ctx)
     {
             if (!ctx.performed) return;
-            Collider2D[] NPC= Physics2D.OverlapCircleAll(transform.position, 4f, LayerMask.GetMask("NPC"));
+            Collider2D[] NPC= Physics2D.OverlapCircleAll(transform.position, 1f, LayerMask.GetMask("NPC"));
             if (NPC.Length == 0) return;
             NPC[0].GetComponent<StartDialog>().OnInteract();
     }

@@ -157,9 +157,10 @@ public class Enemy : MonoBehaviour
         Health -= damage;
         StartCoroutine(Flash());
 
-        if (Health <= 0)
+        if (Health <= 0 && currentState != EnemyState.Die)
         {
             Health = 0;
+            ValueSingleton.Instance.coin += 10;
             SetState(EnemyState.Die);
         }
     }

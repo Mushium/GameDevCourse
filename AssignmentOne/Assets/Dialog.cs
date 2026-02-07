@@ -44,7 +44,7 @@ public class Dialog : MonoBehaviour
             confirmButton.gameObject.SetActive(true);
             cancelButton.gameObject.SetActive(true);
 
-            if (GameMangerSingleton.Instance.Coins >= 20)
+            if (ValueSingleton.Instance.coin >= 20)
             {
                 confirmButton.interactable = true;
             }
@@ -129,9 +129,17 @@ public class Dialog : MonoBehaviour
         DisplayNextSentence();
     }
 
-    public void UpgradeDialogue()
+    public void LevelUpgrade()
     {
         DisplayNextSentence();
-        
+        ValueSingleton.Instance.coin-=20;
+        ValueSingleton.Instance.level++;
+    }
+
+    public void HealthUpgrade()
+    {
+        DisplayNextSentence();
+        ValueSingleton.Instance.coin-=20;
+        ValueSingleton.Instance.AddHealth();
     }
 }

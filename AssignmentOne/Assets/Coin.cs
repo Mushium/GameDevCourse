@@ -6,7 +6,7 @@ public class Coin : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            GameMangerSingleton.Instance.Coins++;
+            ValueSingleton.Instance.coin++;
             GetComponent<Animator>().SetBool("Status",true);
             StartCoroutine(DestroyAfterSeconds());
         }
