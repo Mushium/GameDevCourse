@@ -10045,7 +10045,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1441087529}
         m_TargetAssemblyTypeName: Dialog, Assembly-CSharp
-        m_MethodName: HealthUpgrade
+        m_MethodName: LevelUpgrade
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
