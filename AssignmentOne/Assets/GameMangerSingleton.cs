@@ -19,6 +19,11 @@ public class GameMangerSingleton : MonoBehaviour
     public GameObject VictoryUI;
     public int Health;
     public Text level;
+    public GameObject ChooseWeapon;
+    public GameObject swordUI;
+    public GameObject spearUI;
+    public GameObject SwordPrefab;
+    public GameObject SpearPrefab;
     
     
     
@@ -37,7 +42,44 @@ public class GameMangerSingleton : MonoBehaviour
     void Start()
     {
         VictoryUI.SetActive(false);
+        GetComponent<PlayerInputManager>().enabled = false;
+        ChooseWeapon.SetActive(true);
+        swordUI.SetActive(true);
+        spearUI.SetActive(false);
         UpdateHealth();
+    }
+
+    public void ConfirmWeapon()
+    {
+        if (swordUI.activeSelf)
+        {
+            GameObject obj = Instantiate(SwordPrefab);
+            Camera.main.GetComponent<CameraFollow2D>().target = obj.transform;
+
+            
+        }
+        else
+        {
+            GameObject obj = Instantiate(SpearPrefab);
+            Camera.main.GetComponent<CameraFollow2D>().target = obj.transform;
+
+        }
+        GetComponent<PlayerInputManager>().enabled = true;
+        ChooseWeapon.SetActive(false);
+    }
+
+    public void NextWeapon()
+    {
+        if (swordUI.activeSelf)
+        {
+            swordUI.SetActive(false);
+            spearUI.SetActive(true);
+        }
+        else
+        {
+            swordUI.SetActive(true);
+            spearUI.SetActive(false);
+        }
     }
 
     public void UpdateHealth()

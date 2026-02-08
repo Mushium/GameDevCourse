@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,7 +26,9 @@ public class Dialog : MonoBehaviour
     
     public Button confirmButton;
     public Button cancelButton;
-    
+
+
+
 
     void Start()
     {
@@ -108,7 +111,7 @@ public class Dialog : MonoBehaviour
         foreach (char letter in sentence.ToCharArray())
         {
             dialogueText.text += letter;
-            yield return new WaitForSeconds(0.02f); // Adjust typing speed here
+            yield return new WaitForSecondsRealtime(0.02f);
         }
 
         isTyping = false;

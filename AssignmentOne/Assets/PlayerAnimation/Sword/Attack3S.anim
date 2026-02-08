@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Attack3
+  m_Name: Attack3S
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -26,17 +26,17 @@ AnimationClip:
       value: {fileID: 21300000, guid: 89b990de1f4e94e4c80c4b6a18ee0b52, type: 3}
     - time: 0.1
       value: {fileID: 21300000, guid: c5a733c0a0b6ceb4ab055420a461de4e, type: 3}
-    - time: 0.15
+    - time: 0.16666667
       value: {fileID: 21300000, guid: 4b7a8149873d2ea4ca174a40ad8536fe, type: 3}
-    - time: 0.2
+    - time: 0.21666667
       value: {fileID: 21300000, guid: 97367f6d9ce6a284fae2430248251257, type: 3}
     - time: 0.26666668
       value: {fileID: 21300000, guid: 160e58b9321696840b940d3ff7e61b5a, type: 3}
     - time: 0.31666666
       value: {fileID: 21300000, guid: e043eb2fd2f25e8438bfdbaffe0a9385, type: 3}
-    - time: 0.38333333
+    - time: 0.36666667
       value: {fileID: 21300000, guid: c52b1ba208da1bb41a182a77dce4d0a0, type: 3}
-    - time: 0.43333334
+    - time: 0.41666666
       value: {fileID: 21300000, guid: 9bd071fa91069d04ab841f3d9b0f977e, type: 3}
     - time: 0.48333332
       value: {fileID: 21300000, guid: 03c9836714297ec4ebcca002625fdf56, type: 3}

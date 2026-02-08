@@ -24,6 +24,7 @@ public class CameraFollow2D : MonoBehaviour
     {
         // Lock the Y position at start
         lockedY = transform.position.y;
+       // transform.position = new Vector3(minX,3,-10);
     }
 
     void LateUpdate()
