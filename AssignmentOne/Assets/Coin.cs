@@ -15,6 +15,7 @@ public class Coin : MonoBehaviour
 
     IEnumerator DestroyAfterSeconds()
     {
+        AudioSingleton.Instance.PlayCoin();
         yield return new WaitForSeconds(0.09f);
         Destroy(gameObject);
     }

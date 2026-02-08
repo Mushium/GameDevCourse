@@ -50,5 +50,12 @@ public class KickableObject2D : MonoBehaviour
 
         // Optional spin
         rb.AddTorque(Random.Range(-5f, 5f), ForceMode2D.Impulse);
+        Invoke("DestroyObjectAfterTime", 4f);
+    }
+
+
+    void DestroyObjectAfterTime()
+    {
+        Destroy(gameObject);
     }
 }

@@ -117,6 +117,10 @@ public class PlayerMovement2D : MonoBehaviour
         if (GameMangerSingleton.Instance.Health <= 0)
         {
             currentState = PlayerState.Die;
+            AudioSingleton.Instance.PauseMusic();
+
+            
+            AudioSingleton.Instance.PlayDeath();
             animator.SetInteger("state", (int)currentState);
             return;
         }
@@ -217,6 +221,8 @@ public class PlayerMovement2D : MonoBehaviour
         // -------- Killzone / respawn --------
         if (transform.position.y <= -10)
         {
+            AudioSingleton.Instance.PauseMusic();
+            AudioSingleton.Instance.PlayDeath();
             GameMangerSingleton.Instance.RestartScene();
             gameObject.SetActive(false);
         }
@@ -276,6 +282,7 @@ public class PlayerMovement2D : MonoBehaviour
         {
             verticalVelocity = jumpForce;
             PlayJumpAnimation();
+            AudioSingleton.Instance.PlayJump();
             SetState(PlayerState.Jump);
             return;
         }
@@ -286,7 +293,7 @@ public class PlayerMovement2D : MonoBehaviour
         {
             verticalVelocity = jumpForce;
             jumpsRemaining--;
-
+            AudioSingleton.Instance.PlayJump();
             PlayJumpAnimation();
             SetState(PlayerState.Jump);
         }
@@ -298,6 +305,7 @@ public class PlayerMovement2D : MonoBehaviour
             if (!ctx.performed) return;
             Collider2D[] NPC= Physics2D.OverlapCircleAll(transform.position, 1f, LayerMask.GetMask("NPC"));
             if (NPC.Length == 0) return;
+            AudioSingleton.Instance.PlayButton();
             NPC[0].GetComponent<StartDialog>().OnInteract();
     }
 
@@ -494,10 +502,10 @@ public class PlayerMovement2D : MonoBehaviour
             0.2f,
             LayerMask.GetMask("Enemy")
         );
-        
+        AudioSingleton.Instance.PlaySlash();
         if (collider == null) return;
 
-        collider.gameObject.GetComponent<Enemy>().TakeDamage(c);
+        collider.gameObject.GetComponent<Enemy>().TakeDamage(c + ValueSingleton.Instance.level);
     }
 
     public void KnockBack(Transform obj)

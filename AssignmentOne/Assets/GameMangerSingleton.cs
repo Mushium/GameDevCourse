@@ -24,8 +24,7 @@ public class GameMangerSingleton : MonoBehaviour
     public GameObject spearUI;
     public GameObject SwordPrefab;
     public GameObject SpearPrefab;
-    
-    
+
     
     private void Awake()
     {
@@ -41,8 +40,34 @@ public class GameMangerSingleton : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        if (SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            AudioSingleton.Instance.menu.Pause();
+            AudioSingleton.Instance.snow.Pause();
+            AudioSingleton.Instance.cave.Pause();
+            
+            AudioSingleton.Instance.PlayWood();
+        }
+        else if (SceneManager.GetActiveScene().buildIndex == 2)
+        {
+            
+            AudioSingleton.Instance.wood.Pause();
+            AudioSingleton.Instance.snow.Pause();
+            AudioSingleton.Instance.menu.Pause();
+            
+            
+            AudioSingleton.Instance.PlayCave();
+        }
+        else if (SceneManager.GetActiveScene().buildIndex == 3)
+        {
+            AudioSingleton.Instance.menu.Pause();
+            AudioSingleton.Instance.wood.Pause();
+            AudioSingleton.Instance.cave.Pause();
+            
+            AudioSingleton.Instance.PlaySnow();
+        }
         VictoryUI.SetActive(false);
-        GetComponent<PlayerInputManager>().enabled = false;
+        GetComponent<PlayerInputManager>().DisableJoining();
         ChooseWeapon.SetActive(true);
         swordUI.SetActive(true);
         spearUI.SetActive(false);
@@ -55,17 +80,17 @@ public class GameMangerSingleton : MonoBehaviour
         {
             GameObject obj = Instantiate(SwordPrefab);
             Camera.main.GetComponent<CameraFollow2D>().target = obj.transform;
-
-            
+            GetComponent<PlayerInputManager>().playerPrefab = SwordPrefab;
         }
         else
         {
             GameObject obj = Instantiate(SpearPrefab);
             Camera.main.GetComponent<CameraFollow2D>().target = obj.transform;
-
+            GetComponent<PlayerInputManager>().playerPrefab = SpearPrefab;
         }
-        GetComponent<PlayerInputManager>().enabled = true;
+        GetComponent<PlayerInputManager>().EnableJoining();
         ChooseWeapon.SetActive(false);
+        AudioSingleton.Instance.PlayButton();
     }
 
     public void NextWeapon()
@@ -80,6 +105,8 @@ public class GameMangerSingleton : MonoBehaviour
             swordUI.SetActive(true);
             spearUI.SetActive(false);
         }
+        AudioSingleton.Instance.PlayButton();
+
     }
 
     public void UpdateHealth()
@@ -126,16 +153,33 @@ public class GameMangerSingleton : MonoBehaviour
 
     public void RestartScene()
     {
+        AudioSingleton.Instance.PlayButton();
+
         TransitionManager.Instance().Transition(SceneManager.GetActiveScene().name,transition, startDelay);
     }
 
     public void HomeScene()
     {
+        AudioSingleton.Instance.PlayButton();
+        AudioSingleton.Instance.PauseMusic();
+
         TransitionManager.Instance().Transition("Menu",transition, startDelay);
     }
     public void NextScene()
     {
-        TransitionManager.Instance().Transition(SceneManager.GetSceneByBuildIndex(SceneManager.GetActiveScene().buildIndex + 1).name,transition, startDelay);
+        AudioSingleton.Instance.PlayButton();
+        AudioSingleton.Instance.PauseMusic();
+
+
+        if(SceneManager.GetActiveScene().buildIndex == 1)
+            TransitionManager.Instance().Transition("LevelTwo",transition, startDelay);
+        else if(SceneManager.GetActiveScene().buildIndex == 2)
+            TransitionManager.Instance().Transition("LevelThree",transition, startDelay);
+        else if(SceneManager.GetActiveScene().buildIndex == 3)
+            TransitionManager.Instance().Transition("Menu",transition, startDelay);
+
+            
+        
     }
 
     public void Victory()
@@ -147,6 +191,8 @@ public class GameMangerSingleton : MonoBehaviour
             player.SetActive(false);
         }
         GetComponent<PlayerInputManager>().enabled = false;
+        ValueSingleton.Instance.LevelComplete();
+        AudioSingleton.Instance.PlayWin();
     }
     
 }
