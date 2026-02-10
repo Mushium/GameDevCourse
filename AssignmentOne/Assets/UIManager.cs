@@ -10,6 +10,8 @@ public class UIManager : MonoBehaviour
     public GameObject mainMenu;
     public GameObject settingsMenu;
     public GameObject levelsMenu;
+    public GameObject htpMenu;
+
     public TransitionSettings transition;
     public float startDelay;
 
@@ -43,11 +45,12 @@ public class UIManager : MonoBehaviour
 
     public void Main()
     {
-        if (levelsMenu.activeSelf || settingsMenu.activeSelf)
+        if (levelsMenu.activeSelf || settingsMenu.activeSelf || htpMenu.activeSelf)
         {
             AudioSingleton.Instance.PlayButton();
         }
         mainMenu.SetActive(true);
+        htpMenu.SetActive(false);
         settingsMenu.SetActive(false);
         levelsMenu.SetActive(false);
     }
@@ -57,6 +60,7 @@ public class UIManager : MonoBehaviour
         AudioSingleton.Instance.PlayButton();
 
         mainMenu.SetActive(false);
+        htpMenu.SetActive(false);
         settingsMenu.SetActive(true);
         levelsMenu.SetActive(false);
     }
@@ -66,6 +70,7 @@ public class UIManager : MonoBehaviour
         AudioSingleton.Instance.PlayButton();
 
         mainMenu.SetActive(false);
+        htpMenu.SetActive(false);
         settingsMenu.SetActive(false);
         levelsMenu.SetActive(true);
 
@@ -103,6 +108,16 @@ public class UIManager : MonoBehaviour
             stagesUI[3].gameObject.SetActive(false);
             stagesUI[4].gameObject.SetActive(true);
         }
+    }
+
+    public void HTP()
+    {
+        AudioSingleton.Instance.PlayButton();
+
+        mainMenu.SetActive(false);
+        htpMenu.SetActive(true);
+        settingsMenu.SetActive(false);
+        levelsMenu.SetActive(false);
     }
 
     private void Update()
