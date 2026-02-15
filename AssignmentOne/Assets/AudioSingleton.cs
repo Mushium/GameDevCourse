@@ -56,6 +56,7 @@ public class AudioSingleton : MonoBehaviour
 
     public void PlaySlash()
     {
+        if(GameMangerSingleton.Instance.isDialog) return;
         slash.volume = volume;
         slash.Play();
     }
@@ -103,24 +104,28 @@ public class AudioSingleton : MonoBehaviour
     public void PlayMenu()
     {
         menu.volume = volume;
+        menu.loop = true;
         menu.Play();
     }
 
     public void PlayWood()
     {
         wood.volume = volume;
+        wood.loop = true;
         wood.Play();
     }
 
     public void PlayCave()
     {
         cave.volume = volume;
+        cave.loop = true;
         cave.Play();
     }
 
     public void PlaySnow()
     {
         snow.volume = volume;
+        snow.loop = true;
         snow.Play();
     }
 

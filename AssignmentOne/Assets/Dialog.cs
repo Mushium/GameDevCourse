@@ -64,6 +64,7 @@ public class Dialog : MonoBehaviour
 
     public void StartDialogue()
     {
+        GameMangerSingleton.Instance.isDialog = true;
         if (isDialogue) return;
         isDialogue = true;
         nameText.text = Cname;
@@ -120,6 +121,7 @@ public class Dialog : MonoBehaviour
 
     void EndDialogue()
     {
+        GameMangerSingleton.Instance.isDialog = false;
         isDialogue = false;
         nextIndicator.gameObject.SetActive(false);
         confirmButton.gameObject.SetActive(false);

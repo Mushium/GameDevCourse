@@ -24,10 +24,11 @@ public class GameMangerSingleton : MonoBehaviour
     public GameObject spearUI;
     public GameObject SwordPrefab;
     public GameObject SpearPrefab;
-
+    public bool isDialog;
     
     private void Awake()
     {
+        isDialog = false;
         if (Instance != null && Instance != this)
         {
             Destroy(this.gameObject); // Destroy duplicate instances

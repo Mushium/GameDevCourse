@@ -13563,6 +13563,7 @@ MonoBehaviour:
   spearUI: {fileID: 1108777932}
   SwordPrefab: {fileID: 6053002838109489277, guid: ca25b3c3cb1e4cb49abe068b03795d15, type: 3}
   SpearPrefab: {fileID: 6053002838109489277, guid: 19164c02cfda37a46abc3143228dad86, type: 3}
+  isDialog: 0
 --- !u!4 &1363301967
 Transform:
   m_ObjectHideFlags: 0
@@ -17562,7 +17563,7 @@ Transform:
   m_GameObject: {fileID: 2062999476}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5.12, y: 1.94, z: 25}
+  m_LocalPosition: {x: 5.12, y: 1.35, z: 25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
