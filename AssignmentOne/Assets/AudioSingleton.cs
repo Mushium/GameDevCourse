@@ -25,7 +25,7 @@ public class AudioSingleton : MonoBehaviour
     public AudioSource snow;
     private void Awake()
     {
-        volume = 1f;
+        volume = 0.5f;
         if (Instance != null && Instance != this)
         {
             Destroy(this.gameObject); // Destroy duplicate instances

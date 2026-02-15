@@ -21,6 +21,7 @@ public class UIManager : MonoBehaviour
     {
         Main();
         AudioSingleton.Instance.PlayMenu();
+        Screen.SetResolution(1920, 1080, true);
     }
     
 

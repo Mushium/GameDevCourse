@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -13,9 +14,9 @@ public class ValueSingleton : MonoBehaviour
     private void Awake()
     {
         stage = 0;
-        level = 1;
-        coin = 0;
-        health = 4;
+        level = PlayerPrefs.GetInt("Level", 1);
+        coin = PlayerPrefs.GetInt("Coin", 0);
+        health = PlayerPrefs.GetInt("Health", 4);
         if (Instance != null && Instance != this)
         {
             Destroy(this.gameObject); // Destroy duplicate instances
@@ -26,6 +27,20 @@ public class ValueSingleton : MonoBehaviour
         Instance = this; // Set the instance to this object
         Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
 
+    }
+
+    private void Update()
+    {
+
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            level = 1;
+            coin = 0;
+            health = 4;
+        }
+        PlayerPrefs.SetInt("Coin",coin);
+        PlayerPrefs.SetInt("Level",level);
+        PlayerPrefs.SetInt("Health",health);
     }
 
 
